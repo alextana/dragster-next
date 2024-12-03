@@ -1,20 +1,59 @@
-<script setup lang="ts">
+<script setup>
+import { ref } from 'vue'
+import Draggable from '../../../vue/components/Draggable.vue'
+import Dropzone from '../../../vue/components/Dropzone.vue'
 import HelloWorld from './components/HelloWorld.vue'
+
+const items = ref([
+  {
+    id: 1,
+    name: 'hello',
+  },
+  {
+    id: 2,
+    name: 'test',
+  },
+  {
+    id: 3,
+    name: 'haaaaah',
+  },
+])
+
+const otherItems = ref([
+  {
+    id: 4,
+    name: 'oioi',
+  },
+  {
+    id: 5,
+    name: 'bluey',
+  },
+])
 </script>
 
 <template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <Dropzone :items="items">
+    <Draggable v-for="item in items" :key="item.id">
+      <div class="el">{{ item.name }}</div>
+    </Draggable>
+  </Dropzone>
+
+  <Dropzone :items="otherItems">
+    <Draggable v-for="item in otherItems" :key="item.id">
+      <div class="el">{{ item.name }}</div>
+    </Draggable>
+  </Dropzone>
 </template>
 
 <style scoped>
+[data-dropzone] {
+  margin: 2rem;
+}
+
+.el {
+  padding: 2rem;
+  border: 1px solid white;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
